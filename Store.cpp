@@ -1,85 +1,85 @@
 #include "Store.h"
-#define PSIZE 30 //»óÇ° °¹¼ö
-#define CSIZE 10 //°í°´ ¸í¼ö
-#define PRICE 100000 //»óÇ° 1°³ÀÇ ÃÖ°í °¡°İ
-#define AMOUNT 100 //»óÇ° Á¾·ù´ç ÃÖ°í ¼ö·®
+#define PSIZE 30 //ìƒí’ˆ ê°¯ìˆ˜
+#define CSIZE 10 //ê³ ê° ëª…ìˆ˜
+#define PRICE 100000 //ìƒí’ˆ 1ê°œì˜ ìµœê³  ê°€ê²©
+#define AMOUNT 100 //ìƒí’ˆ ì¢…ë¥˜ë‹¹ ìµœê³  ìˆ˜ëŸ‰
 
-Product product[PSIZE]; //30°³ÀÇ »óÇ° Á¤º¸
+Product product[PSIZE]; //30ê°œì˜ ìƒí’ˆ ì •ë³´
 Customer customer[CSIZE];
-int pro_index = 0; //ÃÊ±â »óÇ° Á¤º¸ ÀÎµ¦½º 0À¸·Î ÃÊ±âÈ­
-int customer_index = 0; //ÃÊ±â °í°´ Á¤º¸ ÀÎµ¦½º 0À¸·Î ÃÊ±âÈ­
+int pro_index = 0; //ì´ˆê¸° ìƒí’ˆ ì •ë³´ ì¸ë±ìŠ¤ 0ìœ¼ë¡œ ì´ˆê¸°í™”
+int customer_index = 0; //ì´ˆê¸° ê³ ê° ì •ë³´ ì¸ë±ìŠ¤ 0ìœ¼ë¡œ ì´ˆê¸°í™”
 
 
-int Base::return_int(int min, int max) { //intÇü ¹İÈ¯ÇØÁÖ´Â ÇÔ¼ö
+int Base::return_int(int min, int max) { //intí˜• ë°˜í™˜í•´ì£¼ëŠ” í•¨ìˆ˜
 	int select_num;
-	while (1) { //MIN, MAX »çÀÌÀÇ ¼ö¸¦ ÀÔ·ÂÇÒ¶§±îÁö ¹İº¹
-		cout << "	¢Ñ ÀÔ·Â: ";
+	while (1) { //MIN, MAX ì‚¬ì´ì˜ ìˆ˜ë¥¼ ì…ë ¥í• ë•Œê¹Œì§€ ë°˜ë³µ
+		cout << "	â˜ ì…ë ¥: ";
 		cin >> select_num;
-		if (select_num <= max && select_num >= min) { //min°ú max »çÀÌÀÇ ¼ö¶ó¸é
-			return select_num; //ÀÔ·Â¹ŞÀº select_num °ª ¹İÈ¯
+		if (select_num <= max && select_num >= min) { //minê³¼ max ì‚¬ì´ì˜ ìˆ˜ë¼ë©´
+			return select_num; //ì…ë ¥ë°›ì€ select_num ê°’ ë°˜í™˜
 			break;
 		}
 		else {
 			cin.clear();
 			cin.ignore(INT_MAX, '\n');
-			cout << "¡Ø¡Ø Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä. ¡Ø¡Ø " << endl << endl;
+			cout << "â€»â€» ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”. â€»â€» " << endl << endl;
 		}
 	}
 }
 
 
-void Store::Receiving() { //case 1ÀÇ Á¦Ç° ÀÔ°í °ü¸®ÇÔ¼ö
+void Store::Receiving() { //case 1ì˜ ì œí’ˆ ì…ê³  ê´€ë¦¬í•¨ìˆ˜
 	string name;
 	int i = 0;
-	cin.ignore(); //getline() buffer clear ¹®Á¦ ¿¹¹æ
-	cout << "¡Ü Á¦Ç° ÀÔ°í ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü " << endl;
-	cout << "[  ÀÔ°íÇÒ Á¦Ç°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä. ]" << endl;
-	cout << "Á¦Ç°¸í : ";
+	cin.ignore(); //getline() buffer clear ë¬¸ì œ ì˜ˆë°©
+	cout << "â— ì œí’ˆ ì…ê³  ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â— " << endl;
+	cout << "[  ì…ê³ í•  ì œí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”. ]" << endl;
+	cout << "ì œí’ˆëª… : ";
 	getline(cin, name);
 	for (i = 0; i < PSIZE; i++) {
-		if (name == product[i].name) { // i ÀÎµ¦½º¿¡¼­ °ªÀ» Ã£¾ÒÀ» ½Ã
-			cout << "¡Ø¡Ø ÀÌ¹Ì µî·ÏµÅ ÀÖ´Â Á¦Ç°ÀÔ´Ï´Ù. ¡Ø¡Ø" << endl;
-			cout << "¦± ¼ö·®À» º¯°æÀº ÆÇ¸Å ½Ã¿¡¸¸ °¡´ÉÇÕ´Ï´Ù. " << endl 
+		if (name == product[i].name) { // i ì¸ë±ìŠ¤ì—ì„œ ê°’ì„ ì°¾ì•˜ì„ ì‹œ
+			cout << "â€»â€» ì´ë¯¸ ë“±ë¡ë¼ ìˆëŠ” ì œí’ˆì…ë‹ˆë‹¤. â€»â€»" << endl;
+			cout << "â”— ìˆ˜ëŸ‰ì„ ë³€ê²½ì€ íŒë§¤ ì‹œì—ë§Œ ê°€ëŠ¥í•©ë‹ˆë‹¤. " << endl 
 				<< endl << endl;
 			return;
 		}
 	}
-	cout << "¡á µî·Ï °¡´ÉÇÑ Á¦Ç°¸íÀÔ´Ï´Ù. ¡á" << endl;
+	cout << "â–  ë“±ë¡ ê°€ëŠ¥í•œ ì œí’ˆëª…ì…ë‹ˆë‹¤. â– " << endl;
 	product[pro_index].name = name;
-	cout << "°¡°İÀ» ÀÔ·ÂÇÏ¼¼¿ä.		";
+	cout << "ê°€ê²©ì„ ì…ë ¥í•˜ì„¸ìš”.		";
 	product[pro_index].price = Base::return_int(0, PRICE);
-	cout << "¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä.		";
+	cout << "ìˆ˜ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”.		";
 	product[pro_index].amount = Base::return_int(1,AMOUNT);;
 
-	cout << product[pro_index].name << "°¡ °¡°İ " << product[pro_index].price <<
-		"·Î Ã¥Á¤µÇ¾ú½À´Ï´Ù. ¼ö·®Àº " << product[pro_index].amount << "ÀÔ´Ï´Ù" << endl;
+	cout << product[pro_index].name << "ê°€ ê°€ê²© " << product[pro_index].price <<
+		"ë¡œ ì±…ì •ë˜ì—ˆìŠµë‹ˆë‹¤. ìˆ˜ëŸ‰ì€ " << product[pro_index].amount << "ì…ë‹ˆë‹¤" << endl;
 	cout << endl << endl;
-	pro_index++; //±â´É ¼öÇà ÈÄ ÀÎµ¦½º À§Ä¡ +1
+	pro_index++; //ê¸°ëŠ¥ ìˆ˜í–‰ í›„ ì¸ë±ìŠ¤ ìœ„ì¹˜ +1
 	return;
 }
 
 
-void Store::CheckProduct() { //case 2ÀÇ Á¦Ç°¸í/°¡°İ È®ÀÎ ±â´É
+void Store::CheckProduct() { //case 2ì˜ ì œí’ˆëª…/ê°€ê²© í™•ì¸ ê¸°ëŠ¥
 	int select_num;
 	string select_name;
-	cout << "¡Ü Á¦Ç°¸í / °¡°İ È®ÀÎ ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü" << endl;
-	cout << "[  ¿øÇÏ½Ã´Â ±â´ÉÀÇ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.  ]" << endl;
-	cout << "1. ÀüÃ¼ ¸í´Ü È®ÀÎ " << endl;
-	cout << "2. °³º° ¸í´Ü È®ÀÎ " << endl;
+	cout << "â— ì œí’ˆëª… / ê°€ê²© í™•ì¸ ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â—" << endl;
+	cout << "[  ì›í•˜ì‹œëŠ” ê¸°ëŠ¥ì˜ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.  ]" << endl;
+	cout << "1. ì „ì²´ ëª…ë‹¨ í™•ì¸ " << endl;
+	cout << "2. ê°œë³„ ëª…ë‹¨ í™•ì¸ " << endl;
 	select_num = Base::return_int(1, 2);
 
 	switch (select_num) {
-	case 1: //ÀüÃ¼ ¸í´Ü È®ÀÎ
-		cout << "¡¼     ÀÌ¸§		  °¡°İ    ¡½" << endl;
+	case 1: //ì „ì²´ ëª…ë‹¨ í™•ì¸
+		cout << "ã€     ì´ë¦„		  ê°€ê²©    ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++)
 			cout << "    " << product[i].name << "		" << product[i].price << endl;
 		break;
-	case 2: //°³º° ¸í´Ü È®ÀÎ
+	case 2: //ê°œë³„ ëª…ë‹¨ í™•ì¸
 		cin.ignore();
-		cout << "[  È®ÀÎÇÒ Á¦Ç°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.  ]" << endl;
+		cout << "[  í™•ì¸í•  ì œí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”.  ]" << endl;
 		cout << "name : ";
 		getline(cin, select_name);
-		cout << "¡¼     ÀÌ¸§		 °¡°İ    ¡½" << endl;
+		cout << "ã€     ì´ë¦„		 ê°€ê²©    ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++) {
 			if (select_name == product[i].name) {
 				cout << "    " << product[i].name << "		" 
@@ -89,42 +89,42 @@ void Store::CheckProduct() { //case 2ÀÇ Á¦Ç°¸í/°¡°İ È®ÀÎ ±â´É
 		}
 		break;
 	default:
-		cout << "¡Ø¡Ø number´Â 1, 2 ¸¸ ÀÔ·ÂÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù. ¡Ø¡Ø" << endl;
+		cout << "â€»â€» numberëŠ” 1, 2 ë§Œ ì…ë ¥í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤. â€»â€»" << endl;
 	}
 }
 
 
-void Store::CheckAmount() { //case3ÀÇ Àç°í °ü¸® ±â´É
+void Store::CheckAmount() { //case3ì˜ ì¬ê³  ê´€ë¦¬ ê¸°ëŠ¥
 	int select_num;
 	string select_name;
-	cout << "¡Ü Àç°í °ü¸® ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü" << endl;
-	cout << "[  ¿øÇÏ½Ã´Â ±â´ÉÀÇ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.  ]" << endl;
-	cout << "1. ÀüÃ¼ ¸í´Ü È®ÀÎ " << endl;
-	cout << "2. °³º° ¸í´Ü È®ÀÎ " << endl;
+	cout << "â— ì¬ê³  ê´€ë¦¬ ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â—" << endl;
+	cout << "[  ì›í•˜ì‹œëŠ” ê¸°ëŠ¥ì˜ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.  ]" << endl;
+	cout << "1. ì „ì²´ ëª…ë‹¨ í™•ì¸ " << endl;
+	cout << "2. ê°œë³„ ëª…ë‹¨ í™•ì¸ " << endl;
 	select_num = Base::return_int(1, 2);
 
 	switch (select_num) {
-	case 1: //ÀüÃ¼ ¸í´Ü È®ÀÎ
-		cout << "¡¼     ÀÌ¸§		 Àç°í    ¡½" << endl;
+	case 1: //ì „ì²´ ëª…ë‹¨ í™•ì¸
+		cout << "ã€     ì´ë¦„		 ì¬ê³     ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++) {
 			cout << "  " << product[i].name << "		" << product[i].amount;
-			if (product[i].amount <= 5 && product[i].amount != 0) //ÀÌºÎºĞµµ ¼öÁ¤
-				cout << "		¡ÚÇ°ÀıÀÓ¹Ú¡Ú" << endl;
+			if (product[i].amount <= 5 && product[i].amount != 0) //ì´ë¶€ë¶„ë„ ìˆ˜ì •
+				cout << "		â˜…í’ˆì ˆì„ë°•â˜…" << endl;
 			else
 				cout << endl;
 		}
 		break;
-	case 2: //°³º° ¸í´Ü È®ÀÎ
+	case 2: //ê°œë³„ ëª…ë‹¨ í™•ì¸
 		cin.ignore();
-		cout << "[  È®ÀÎÇÒ Á¦Ç°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.  ]" << endl;
+		cout << "[  í™•ì¸í•  ì œí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”.  ]" << endl;
 		cout << "name : ";
 		getline(cin, select_name);
-		cout << "¡¼     ÀÌ¸§		 Àç°í    ¡½" << endl;
+		cout << "ã€     ì´ë¦„		 ì¬ê³     ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++) {
 			if (select_name == product[i].name) {
-				cout << "  " << product[i].name << "	" << product[i].amount;
+				cout << "  " << product[i].name << "		" << product[i].amount;
 				if (product[i].amount <= 5)
-					cout << "		¡ÚÇ°ÀıÀÓ¹Ú¡Ú" << endl;
+					cout << "		â˜…í’ˆì ˆì„ë°•â˜…" << endl;
 				else
 					cout << endl;
 				break;
@@ -132,120 +132,120 @@ void Store::CheckAmount() { //case3ÀÇ Àç°í °ü¸® ±â´É
 		}
 		break;
 	default:
-		cout << "¡Ø¡Ø 1, 2 ¸¸ ÀÔ·ÂÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù. ¡Ø¡Ø" << endl;
+		cout << "â€»â€» 1, 2 ë§Œ ì…ë ¥í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤. â€»â€»" << endl;
 	}
 }
 
 
-void Store::Sales() { //case4ÀÇ ÆÇ¸Å ±â·Ï °ü¸®
+void Store::Sales() { //case4ì˜ íŒë§¤ ê¸°ë¡ ê´€ë¦¬
 	int howMany, save_price = 0, how_amount, use_point;
 	string what_Pname, what_Cname, what_number;
 	char yes_no;
 
-	cout << "¡Ü ÆÇ¸Å ±â·Ï °ü¸® ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü" << endl;
-	cout << "[  ÇöÀç °í°´´Ô²²¼­ ¸î Á¾·ùÀÇ »óÇ°À» ±¸¸ÅÇÏ¼Ì³ª¿ä?  ]";
-	cout << "Á¾·ù: ";
+	cout << "â— íŒë§¤ ê¸°ë¡ ê´€ë¦¬ ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â—" << endl;
+	cout << "[  í˜„ì¬ ê³ ê°ë‹˜ê»˜ì„œ ëª‡ ì¢…ë¥˜ì˜ ìƒí’ˆì„ êµ¬ë§¤í•˜ì…¨ë‚˜ìš”?  ]";
+	cout << "ì¢…ë¥˜: ";
 	howMany = Base::return_int(1, PSIZE);
-	for (int i = 0; i < howMany; i++) { //±¸¸ÅÇÑ Á¾·ùÀÇ °¹¼ö¸¸Å­ ¹İº¹	
-		cout << "[  ±¸¸ÅÇÏ½Å »óÇ°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.  ]" << endl;
+	for (int i = 0; i < howMany; i++) { //êµ¬ë§¤í•œ ì¢…ë¥˜ì˜ ê°¯ìˆ˜ë§Œí¼ ë°˜ë³µ	
+		cout << "[  êµ¬ë§¤í•˜ì‹  ìƒí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”.  ]" << endl;
 		cout << "Product Name : "; cin >> what_Pname;
 
-		while (1) { //Á¦´ë·Î µÈ »óÇ°¸íÀ» ÀÔ·ÂÇÒ ¶§±îÁö ¹İº¹
-			for (int j = 0; j < PSIZE; j++) { //»óÇ°¸í Ã£±â
-				if (what_Pname == product[j].name) { //»óÇ°¸í Ã£±â ¼º°ø
-					cout << "[  " << product[j].name << "ÀÇ ¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä.  ]" 
+		while (1) { //ì œëŒ€ë¡œ ëœ ìƒí’ˆëª…ì„ ì…ë ¥í•  ë•Œê¹Œì§€ ë°˜ë³µ
+			for (int j = 0; j < PSIZE; j++) { //ìƒí’ˆëª… ì°¾ê¸°
+				if (what_Pname == product[j].name) { //ìƒí’ˆëª… ì°¾ê¸° ì„±ê³µ
+					cout << "[  " << product[j].name << "ì˜ ìˆ˜ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”.  ]" 
 						<< endl;
 					how_amount = Base::return_int(1, AMOUNT);
-					product[j].amount -= how_amount; //Àç°í ¼ö·® »©±â
-					product[j].sales_rate += how_amount; //ÆÇ¸Å ±â·Ï ÀúÀå
-					save_price += product[j].price * how_amount; //°¡°İ*¼ö·® ÀúÀå
+					product[j].amount -= how_amount; //ì¬ê³  ìˆ˜ëŸ‰ ë¹¼ê¸°
+					product[j].sales_rate += how_amount; //íŒë§¤ ê¸°ë¡ ì €ì¥
+					save_price += product[j].price * how_amount; //ê°€ê²©*ìˆ˜ëŸ‰ ì €ì¥
 					break;
 				}
 			}
 			break;
 		}
 	}
-	cout << "¡á ÃÑ ±İ¾×Àº " << save_price << "¿øÀÔ´Ï´Ù. ¡á" << endl;
-	cout << "¡á ÀúÈñ ¸ÅÀåÀº ÃÑ ±¸¸Å ±İ¾×ÀÇ 5%¸¦ Æ÷ÀÎÆ®·Î Àû¸³ÇÕ´Ï´Ù. ¡á" << endl;
-	cout << " ¦± Æ÷ÀÎÆ®°¡ 1000Á¡ ÀÌ»óÀÌ¸é Çö±İÃ³·³ »ç¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù. " << endl;
-	cout << "¡Ü ÀúÈñ ¸ÅÀåÀÇ È¸¿øÀÌ½Ê´Ï±î? ( Y / N ) : "; cin >> yes_no;
-	if (yes_no == 'Y') { //¸ÅÀå È¸¿øÀÏ ¶§
-		cout << "[  ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä  ]" << endl << "	ÀÌ¸§: "; cin >> what_Cname;
+	cout << "â–  ì´ ê¸ˆì•¡ì€ " << save_price << "ì›ì…ë‹ˆë‹¤. â– " << endl;
+	cout << "â–  ì €í¬ ë§¤ì¥ì€ ì´ êµ¬ë§¤ ê¸ˆì•¡ì˜ 5%ë¥¼ í¬ì¸íŠ¸ë¡œ ì ë¦½í•©ë‹ˆë‹¤. â– " << endl;
+	cout << " â”— í¬ì¸íŠ¸ê°€ 1000ì  ì´ìƒì´ë©´ í˜„ê¸ˆì²˜ëŸ¼ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤. " << endl;
+	cout << "â— ì €í¬ ë§¤ì¥ì˜ íšŒì›ì´ì‹­ë‹ˆê¹Œ? ( Y / N ) : "; cin >> yes_no;
+	if (yes_no == 'Y') { //ë§¤ì¥ íšŒì›ì¼ ë•Œ
+		cout << "[  ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”  ]" << endl << "	ì´ë¦„: "; cin >> what_Cname;
 		for (int i = 0; i < CSIZE; i++) {
 			if (what_Cname == customer[i].name) {
 				if (customer[i].point >= 1000) {
-					cout << "¡Ü Æ÷ÀÎÆ®¸¦ »ç¿ëÇÏ½Ã°Ú½À´Ï±î? ( Y / N ) : " << endl;
+					cout << "â— í¬ì¸íŠ¸ë¥¼ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ? ( Y / N ) : " << endl;
 					cin >> yes_no;
 					if (yes_no == 'Y') {
-						cout << customer[i].name << "´ÔÀÇ Æ÷ÀÎÆ®´Â " << customer[i].point
-							<< "Á¡ ÀÔ´Ï´Ù.  ¾ó¸¶³ª »ç¿ëÇÏ½Ã°Ú½À´Ï±î? : ";
+						cout << customer[i].name << "ë‹˜ì˜ í¬ì¸íŠ¸ëŠ” " << customer[i].point
+							<< "ì  ì…ë‹ˆë‹¤.  ì–¼ë§ˆë‚˜ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ? : ";
 						use_point = Base::return_int(1, customer[i].point);
-						cout << "¡á °áÁ¦ÇÏ½Ç ±İ¾×Àº " << save_price - use_point
-							<< "¿øÀÔ´Ï´Ù. ¡á" << endl;
+						cout << "â–  ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì€ " << save_price - use_point
+							<< "ì›ì…ë‹ˆë‹¤. â– " << endl;
 						customer[i].point -= use_point;
 					}
 					else if (yes_no == 'N')
-						cout << "¡á °áÁ¦ÇÏ½Ç ±İ¾×Àº " << save_price << "¿øÀÔ´Ï´Ù. ¡á" << endl;
+						cout << "â–  ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì€ " << save_price << "ì›ì…ë‹ˆë‹¤. â– " << endl;
 				}
 				else 
-					cout << "¡á °áÁ¦ÇÏ½Ç ±İ¾×Àº " << save_price << "¿øÀÔ´Ï´Ù. ¡á" << endl;
+					cout << "â–  ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì€ " << save_price << "ì›ì…ë‹ˆë‹¤. â– " << endl;
 				customer[i].point += (save_price * 0.05);
-				cout << save_price * 0.05 << " Àû¸³µÇ¾î " << customer[i].name
-					<< "´ÔÀÇ Æ÷ÀÎÆ®°¡ " << customer[i].point << "Á¡ÀÌ µÇ¾ú½À´Ï´Ù."
-					<< endl << "¡Ú¡Ù¡Ú¡Ù ±¸¸ÅÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù. ¡Ù¡Ú¡Ù¡Ú" << endl << endl;
+				cout << save_price * 0.05 << " ì ë¦½ë˜ì–´ " << customer[i].name
+					<< "ë‹˜ì˜ í¬ì¸íŠ¸ê°€ " << customer[i].point << "ì ì´ ë˜ì—ˆìŠµë‹ˆë‹¤."
+					<< endl << "â˜…â˜†â˜…â˜† êµ¬ë§¤í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤. â˜†â˜…â˜†â˜…" << endl << endl;
 				return;
 			}
 		}
 	}
 
-	else if (yes_no == 'N') {//¸ÅÀå È¸¿øÀÌ ¾Æ´Ò ¶§
-		cout << "¡Ü È¸¿ø°¡ÀÔÀ» ¿øÇÏ½Ê´Ï±î?( Y / N ) : "; cin >> yes_no;
+	else if (yes_no == 'N') {//ë§¤ì¥ íšŒì›ì´ ì•„ë‹ ë•Œ
+		cout << "â— íšŒì›ê°€ì…ì„ ì›í•˜ì‹­ë‹ˆê¹Œ?( Y / N ) : "; cin >> yes_no;
 		if (yes_no == 'Y') {
-			cout << "[  °í°´´ÔÀÇ ÀÌ¸§°ú ÀüÈ­¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.  ]" << endl;
+			cout << "[  ê³ ê°ë‹˜ì˜ ì´ë¦„ê³¼ ì „í™”ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.  ]" << endl;
 			cout << "Name : "; cin >> customer[customer_index].name;
 			cout << "Number : "; cin >> customer[customer_index].number;
 			customer[customer_index].point += save_price * 0.05;
-			cout << save_price * 0.05 << "Æ÷ÀÎÆ®°¡ Àû¸³µÇ¾î " 
+			cout << save_price * 0.05 << "í¬ì¸íŠ¸ê°€ ì ë¦½ë˜ì–´ " 
 				<< customer[customer_index].name
-				<< "´ÔÀÇ Æ÷ÀÎÆ®°¡ " << customer[customer_index].point 
-				<< "Á¡ÀÌ µÇ¾ú½À´Ï´Ù."<< endl;
+				<< "ë‹˜ì˜ í¬ì¸íŠ¸ê°€ " << customer[customer_index].point 
+				<< "ì ì´ ë˜ì—ˆìŠµë‹ˆë‹¤."<< endl;
 			customer_index++;
-			cout << "¡á °áÁ¦ÇÏ½Ç ±İ¾×Àº " << save_price << "¿øÀÔ´Ï´Ù. ¡á" << endl;
-			cout << "¡Ú¡Ù¡Ú¡Ù ±¸¸ÅÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù. ¡Ù¡Ú¡Ù¡Ú" << endl << endl;
+			cout << "â–  ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì€ " << save_price << "ì›ì…ë‹ˆë‹¤. â– " << endl;
+			cout << "â˜…â˜†â˜…â˜† êµ¬ë§¤í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤. â˜†â˜…â˜†â˜…" << endl << endl;
 			return;
 		}
 		else {
-			cout << "¡á °áÁ¦ÇÏ½Ç ±İ¾×Àº " << save_price << "¿øÀÔ´Ï´Ù. ¡á" << endl;
-			cout << "¡Ú¡Ù¡Ú¡Ù ±¸¸ÅÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù. ¡Ù¡Ú¡Ù¡Ú" << endl << endl;
+			cout << "â–  ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì€ " << save_price << "ì›ì…ë‹ˆë‹¤. â– " << endl;
+			cout << "â˜…â˜†â˜…â˜† êµ¬ë§¤í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤. â˜†â˜…â˜†â˜…" << endl << endl;
 			return;
 		}
 	}
 }
 
 
-void Store::Check_SaleProduct() { //case5ÀÇ ´©Àû ÆÇ¸Å·® È®ÀÎ ±â´É
+void Store::Check_SaleProduct() { //case5ì˜ ëˆ„ì  íŒë§¤ëŸ‰ í™•ì¸ ê¸°ëŠ¥
 	int select_num;
 	string select_name;
-	cout << "¡Ü ´©Àû ÆÇ¸Å·® È®ÀÎ ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü" << endl;
-	cout << "[  ¿øÇÏ½Ã´Â ±â´ÉÀÇ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.  ]" << endl;
-	cout << "1. ÀüÃ¼ ¸í´Ü È®ÀÎ " << endl;
-	cout << "2. °³º° ¸í´Ü È®ÀÎ " << endl;
+	cout << "â— ëˆ„ì  íŒë§¤ëŸ‰ í™•ì¸ ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â—" << endl;
+	cout << "[  ì›í•˜ì‹œëŠ” ê¸°ëŠ¥ì˜ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.  ]" << endl;
+	cout << "1. ì „ì²´ ëª…ë‹¨ í™•ì¸ " << endl;
+	cout << "2. ê°œë³„ ëª…ë‹¨ í™•ì¸ " << endl;
 	select_num = Base::return_int(1, 2);
 
 	switch (select_num) {
 
-	case 1: //ÀüÃ¼ ¸í´Ü È®ÀÎ
-		cout << "¡¼     ÀÌ¸§		 Àç°í    ¡½" << endl;
+	case 1: //ì „ì²´ ëª…ë‹¨ í™•ì¸
+		cout << "ã€     ì´ë¦„		 ì¬ê³     ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++)
 			cout << product[i].name << "		" << product[i].sales_rate << endl;
 		return;
 
-	case 2: //°³º° ¸í´Ü È®ÀÎ
+	case 2: //ê°œë³„ ëª…ë‹¨ í™•ì¸
 		cin.ignore();
-		cout << "[  È®ÀÎÇÒ Á¦Ç°¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä.  ]" << endl;
+		cout << "[  í™•ì¸í•  ì œí’ˆëª…ì„ ì…ë ¥í•˜ì„¸ìš”.  ]" << endl;
 		cout << "name : ";
 		getline(cin, select_name);
-		cout << "¡¼     ÀÌ¸§		 Àç°í    ¡½" << endl;
+		cout << "ã€     ì´ë¦„		 ì¬ê³     ã€‘" << endl;
 		for (int i = 0; i < PSIZE; i++) {
 			if (select_name == product[i].name) {
 				cout << product[i].name << "		" << product[i].sales_rate 
@@ -253,7 +253,7 @@ void Store::Check_SaleProduct() { //case5ÀÇ ´©Àû ÆÇ¸Å·® È®ÀÎ ±â´É
 				return;
 			}
 		}
-		cout << "¡Ø¡Ø ÀÏÄ¡ÇÏ´Â Á¦Ç°¸íÀÌ ¾ø½À´Ï´Ù. ÃÊ±âÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù. ¡Ø¡Ø" 
+		cout << "â€»â€» ì¼ì¹˜í•˜ëŠ” ì œí’ˆëª…ì´ ì—†ìŠµë‹ˆë‹¤. ì´ˆê¸°í™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤. â€»â€»" 
 			<< endl << endl;
 	default:
 		cout << endl;
@@ -261,11 +261,11 @@ void Store::Check_SaleProduct() { //case5ÀÇ ´©Àû ÆÇ¸Å·® È®ÀÎ ±â´É
 }
 
 
-void Store::CheckPoint() { //°í°´ Æ÷ÀÎÆ® È®ÀÎ ±â´É
+void Store::CheckPoint() { //ê³ ê° í¬ì¸íŠ¸ í™•ì¸ ê¸°ëŠ¥
 	string what_name;
-	cout << "¡Ü °í°´ Æ÷ÀÎÆ® È®ÀÎ ±â´ÉÀ» ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. ¡Ü" << endl;
-	cout << "¡Ø °í°´ÀÇ Æ÷ÀÎÆ®´Â °³º° È®ÀÎ ±â´É¸¸ Áö¿øÇÕ´Ï´Ù. ¡Ø" << endl;
-	cout << "[  Á¶È¸ÇÏ½Ç °í°´ÀÇ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.  ]" << endl;
+	cout << "â— ê³ ê° í¬ì¸íŠ¸ í™•ì¸ ê¸°ëŠ¥ì„ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. â—" << endl;
+	cout << "â€» ê³ ê°ì˜ í¬ì¸íŠ¸ëŠ” ê°œë³„ í™•ì¸ ê¸°ëŠ¥ë§Œ ì§€ì›í•©ë‹ˆë‹¤. â€»" << endl;
+	cout << "[  ì¡°íšŒí•˜ì‹¤ ê³ ê°ì˜ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.  ]" << endl;
 	cout << "Name : "; cin >> what_name;
 	for (int i = 0; i < CSIZE; i++) {
 		if (what_name == customer[i].name)
@@ -273,5 +273,5 @@ void Store::CheckPoint() { //°í°´ Æ÷ÀÎÆ® È®ÀÎ ±â´É
 			<< "	Point : " << customer[i].point << endl;
 		return;
 	}
-	cout << "ÀÏÄ¡ÇÏ´Â °í°´ÀÌ ¾ø½À´Ï´Ù. "<< endl << endl;
+	cout << "ì¼ì¹˜í•˜ëŠ” ê³ ê°ì´ ì—†ìŠµë‹ˆë‹¤. "<< endl << endl;
 }
